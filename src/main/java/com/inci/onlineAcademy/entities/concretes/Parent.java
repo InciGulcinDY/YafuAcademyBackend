@@ -8,7 +8,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Map;
+import java.util.HashSet;
+import java.util.Set;
 
 @Data
 @Entity
@@ -18,6 +19,6 @@ import java.util.Map;
 public class Parent extends PersonBaseEntity {
 
     @ManyToMany(mappedBy = "parents")
-    private Map<Integer, Student> students;
+    private Set<Student> students = new HashSet<>();
 
 }

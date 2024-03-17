@@ -5,7 +5,9 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 @Data
 @Entity
@@ -18,11 +20,13 @@ public class Instructor extends PersonBaseEntity {
     private String instructorId;
 
     @ManyToMany(mappedBy = "instructors")
-    private Map<Integer, Expertise> expertises = new HashMap<>();
+    private Set<Expertise> expertises = new HashSet<>();
 
-    // TODO: to be implemented lecture relation
+    @ManyToMany(mappedBy = "instructors")
+    private Set<Lecture> lectures = new HashSet<>();
+
+
     // TODO: Weekly course plan
-    // TODO: Grades
 
 
 }

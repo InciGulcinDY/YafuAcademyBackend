@@ -4,7 +4,8 @@ import com.inci.onlineAcademy.entities.abstracts.PersonBaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.Map;
+import java.util.HashSet;
+import java.util.Set;
 
 
 @Data
@@ -23,7 +24,7 @@ public class Student extends PersonBaseEntity {
             joinColumns = @JoinColumn(name = "student_id"),
             inverseJoinColumns = @JoinColumn(name = "parent_id")
     )
-    private Map<Integer, Parent> parents;
+    private Set<Parent> parents = new HashSet<>();
 
     // TODO: tobe implemented lectures
 }

@@ -6,8 +6,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.HashMap;
-import java.util.Map;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @Data
 @Entity
@@ -24,7 +25,7 @@ public class Expertise extends BaseEntity {
             joinColumns = @JoinColumn(name = "expertise_id"),
             inverseJoinColumns = @JoinColumn(name = "instructor_id")
     )
-    private Map<Integer, Instructor> instructors = new HashMap<>();
+    private Set<Instructor> instructors = new HashSet<>();
 
 
 }
