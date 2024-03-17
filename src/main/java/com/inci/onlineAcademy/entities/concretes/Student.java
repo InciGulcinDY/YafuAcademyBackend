@@ -1,16 +1,29 @@
 package com.inci.onlineAcademy.entities.concretes;
 
-import com.inci.onlineAcademy.entities.abstracts.Person;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import com.inci.onlineAcademy.entities.abstracts.PersonBaseEntity;
+import jakarta.persistence.*;
+import lombok.*;
 
+import java.util.Map;
+
+
+@Data
+@Entity
+@Table(name = "students")
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
-@Setter
-public class Student extends Person {
-    private int studentId;
-    private int studentIdentificationNumber;
+public class Student extends PersonBaseEntity {
+
+    @Column(name = "school_id")
+    private String schoolId;
+
+    @ManyToMany
+    @JoinTable(
+            name = "students_parents",
+            joinColumns = @JoinColumn(name = "student_id"),
+            inverseJoinColumns = @JoinColumn(name = "parent_id")
+    )
+    private Map<Integer, Parent> parents;
+
+    // TODO: tobe implemented lectures
 }
