@@ -25,4 +25,6 @@ public class ExpertiseBusinessRule {
             throw new BusinessException(messageService.getMessage(Messages.Expertise.getExpertiseNotFoundMessage));
         }
     }
+
+
 }

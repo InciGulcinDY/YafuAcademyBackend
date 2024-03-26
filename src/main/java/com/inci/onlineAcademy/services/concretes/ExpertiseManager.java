@@ -4,6 +4,7 @@ import com.inci.onlineAcademy.core.exceptions.types.NotFoundException;
 import com.inci.onlineAcademy.core.utilities.mappers.ModelMapperService;
 import com.inci.onlineAcademy.core.utilities.messages.MessageService;
 import com.inci.onlineAcademy.core.utilities.results.Result;
+import com.inci.onlineAcademy.core.utilities.results.SuccessResult;
 import com.inci.onlineAcademy.entities.concretes.Expertise;
 import com.inci.onlineAcademy.repositories.ExpertiseRepository;
 import com.inci.onlineAcademy.services.abstracts.ExpertiseService;
@@ -50,16 +51,57 @@ public class ExpertiseManager implements ExpertiseService {
 
     @Override
     public Result add(AddExpertiseRequest request) {
-        return null;
+
+        //  Converting the data format:
+        request.setExpertise(request.getExpertise().toLowerCase());
+
+        //  Business Rules:
+        businessRule.existsExpertiseByExpertise(request.getExpertise());
+
+        //  Mapper:
+        Expertise expertise = this.modelMapperService.forRequest().map(request, Expertise.class);
+
+        //  Saving:
+        expertiseRepository.save(expertise);
+
+        return new SuccessResult(messageService.getMessage(Messages.Expertise.expertiseAddSuccess));
     }
 
     @Override
     public Result update(UpdateExpertiseRequest request) {
-        return null;
+
+        //  Converting the data format:
+        request.setExpertise(request.getExpertise().toLowerCase());
+
+        //  Business Rules:
+        businessRule.existsExpertiseByExpertise(request.getExpertise());
+
+        //  Mapper:
+        Expertise expertise = this.modelMapperService.forRequest().map(request, Expertise.class);
+
+        //  Updating:
+        expertiseRepository.save(expertise);
+
+        return new SuccessResult(messageService.getMessage(Messages.Expertise.expertiseUpdateSuccess));
     }
 
     @Override
     public Result delete(DeleteExpertiseRequest request) {
-        return null;
+
+        //  Converting the data format:
+        request.setExpertise(request.getExpertise().toLowerCase());
+
+        //  Verifying the presence of relevant data.
+        expertiseRepository.existsByExpertise(request.getExpertise());
+
+        //  Finding:
+        Expertise expertise = expertiseRepository.findByExpertise(request.getExpertise());
+
+        //  Deleting:
+        expertiseRepository.deleteById(expertise.getId());
+
+
+        return new SuccessResult(messageService.getMessage(Messages.Expertise.expertiseDeleteSuccess));
+
     }
 }
